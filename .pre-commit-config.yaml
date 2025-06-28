@@ -1,0 +1,44 @@
+# Local hooks only, everything is installed in the local venv.
+
+repos:
+  - repo: local
+    hooks:
+      # The next 3 checkers come from the pre-commit-hooks package
+      - id: check-yaml
+        name: check-yaml
+        entry: check-yaml
+        language: system
+        types: [yaml]
+
+      - id: end-of-file-fixer
+        name: end-of-file-fixer
+        entry: end-of-file-fixer
+        language: system
+        types: [text]
+
+      - id: trailing-whitespace-fixer
+        name: trailing-whitespace-fixer
+        entry: trailing-whitespace-fixer
+        language: system
+        types: [text]
+
+      - id: ruff-check
+        name: ruff-check
+        entry: ruff check --fix --exit-non-zero-on-fix
+        language: system
+        types: [python]
+        require_serial: true
+
+      - id: ruff-format
+        name: ruff-format
+        entry: ruff format
+        language: system
+        types: [python]
+        require_serial: true
+
+      - id: mypy
+        name: mypy
+        entry: mypy
+        language: system
+        types: [python]
+        require_serial: true

@@ -1,0 +1,23 @@
+# text editors / IDEs
+*.swp
+.project
+.pydevproject
+.vscode/
+.idea/
+
+# Python: Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+
+# Python: Distribution / packaging
+*.egg-info/
+/build/
+/dist/
+
+# Python: Tools cache
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Python: venv
+.venv/
