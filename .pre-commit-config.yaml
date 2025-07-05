@@ -1,5 +1,8 @@
 # Local hooks only, everything is installed in the local venv.
 
+# Do not run any tool on data files, their contents shouldn't change
+exclude: ^tests/responses/
+
 repos:
   - repo: local
     hooks:
