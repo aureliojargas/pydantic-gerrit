@@ -1,0 +1,19 @@
+# https://gerrit.googlesource.com/docker-gerrit/
+
+services:
+  gerrit:
+    image: docker.io/gerritcodereview/gerrit:3.12.0
+    volumes:
+      - git-volume:/var/gerrit/git
+      - index-volume:/var/gerrit/index
+      - cache-volume:/var/gerrit/cache
+      - etc-volume:/var/gerrit/etc
+    ports:
+      - "29418:29418"
+      - "8080:8080"
+
+volumes:
+  git-volume:
+  index-volume:
+  cache-volume:
+  etc-volume:
