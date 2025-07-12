@@ -1,6 +1,6 @@
 # Roadmap
 
-## First milestone: Validate the original idea
+## First milestone: Validate the original idea (done: 2025-07-13)
 
 - Support just a single endpoint: `groups`
 - Support just a single Gerrit version: `3.12.0`
