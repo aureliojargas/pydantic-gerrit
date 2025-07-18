@@ -1,8 +1,15 @@
 gerrit_repo = ../gerrit
+
 version = 3.12
-version_package = v3_12
+version_package = v$(subst .,_,$(version))
+
+version_docker_311 = 3.11.3
+version_docker_312 = 3.12.0
+
 endpoints = access accounts changes config documentation groups plugins projects
 endpoint = groups
+
+# Gerrit sources repository
 
 clone:
 	@mkdir -p $(gerrit_repo)
@@ -10,11 +17,17 @@ clone:
 checkout:
 	@git -C $(gerrit_repo) checkout --quiet stable-$(version)
 
-docker-run:
-	docker run -p 8080:8080 -p 29418:29418 gerritcodereview/gerrit:3.12.0
+# Docker
+
+docker-run-3.11:
+	docker run -p 8080:8080 -p 29418:29418 gerritcodereview/gerrit:$(version_docker_311)
+docker-run-3.12:
+	docker run -p 8080:8080 -p 29418:29418 gerritcodereview/gerrit:$(version_docker_312)
+
 docker-fix:
 	docker container prune -f
-	docker image rm gerritcodereview/gerrit:3.12.0
+	docker image rm gerritcodereview/gerrit:$(version_docker_311)
+	docker image rm gerritcodereview/gerrit:$(version_docker_312)
 
 # List JSON entities from the REST API documentation
 
