@@ -13,7 +13,7 @@ from pydantic_gerrit.v3_12.groups import (
     GroupsInput,
     MembersInput,
 )
-from tests.helpers import TESTS_RESPONSE_DIR, GerritAPIError, api_call, dump_json_to_file, parse_response_text
+from tests.helpers import TESTS_RESPONSE_DIR, api_call, dump_json_to_file, parse_response_text
 from tests.test_accounts import get_account
 
 # These constants are set in setup_gerrit_groups_test()
@@ -33,13 +33,11 @@ def get_group(name_or_id: str, *, includes: bool = False, members: bool = False)
         params.append(('o', 'INCLUDES'))
     if members:
         params.append(('o', 'MEMBERS'))
-    try:
-        response = api_call('groups/', params=params)
-    except GerritAPIError as error:
-        if error.args[0] == 404:  # noqa: PLR2004
-            return None
-        raise
-    return GroupInfo.model_validate(parse_response_text(response.text)[0])
+    response = api_call('groups/', params=params)
+    parsed_response: list[Any] = parse_response_text(response.text)
+    if parsed_response:
+        return GroupInfo.model_validate(parse_response_text(response.text)[0])
+    return None
 
 
 def create_group(name: str, input_: GroupInput | None = None) -> GroupInfo:
