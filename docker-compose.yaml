@@ -1,3 +1,7 @@
+# Somehow this is not working. It works the first time, then it breaks and do not work anymore. Not
+# sure exactly what is the problem. Maybe something specific to Firebase Studio. I went back to
+# using `docker run` manually, eventually doing manual cleanup when issues occur `make docker-fix`.
+
 # https://gerrit.googlesource.com/docker-gerrit/
 
 services:

@@ -80,7 +80,7 @@ We're using `alias=` in the model to fix the validation to accept the underscore
 
 Steps:
 
-- `docker compose up`
+- `make docker-run-3.12`
 - Initial setup to be done only once:
   - Access the Gerrit URL on port 8080
   - Go to `settings/#HTTPCredentials` and generate a new password
