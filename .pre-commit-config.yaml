@@ -1,5 +1,7 @@
 # Local hooks only, everything is installed in the local venv.
 
+default_install_hook_types: [pre-commit, pre-push]
+
 # Do not run any tool on data files, their contents shouldn't change
 exclude: ^tests/responses/
 
