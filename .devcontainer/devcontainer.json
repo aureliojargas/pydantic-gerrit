@@ -1,0 +1,29 @@
+{
+    "build": {
+		"dockerfile": "Dockerfile"
+	},
+    "features": {
+        "ghcr.io/devcontainers/features/python:1": {
+            "toolsToInstall": "uv"
+        },
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "charliermarsh.ruff",
+                "DavidAnson.vscode-markdownlint",
+                "earshinov.permute-lines",
+                "ms-python.mypy-type-checker",
+                "oderwat.indent-rainbow",
+                "stkb.rewrap",
+                "streetsidesoftware.code-spell-checker",
+                "tamasfe.even-better-toml"
+            ]
+        }
+    },
+    "postCreateCommand": "uv sync",
+    "remoteUser": "vscode"
+}
