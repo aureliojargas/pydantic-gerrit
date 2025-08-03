@@ -85,6 +85,9 @@ Steps:
   - Access the Gerrit URL on port 8080
   - Go to `settings/#HTTPCredentials` and generate a new password
   - Add the password to `~/.netrc`, as `machine localhost login admin password ...`
+- Setup Python venv
+  - Setup venv: `uv sync`
+  - Activate venv: `source .venv/bin/activate.fish`
 - `pytest`
 
 Other:
