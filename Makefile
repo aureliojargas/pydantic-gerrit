@@ -9,6 +9,9 @@ version_docker_312 = 3.12.0
 endpoints = access accounts changes config documentation groups plugins projects
 endpoint = groups
 
+help:
+	@echo "Choose one target."
+
 # Gerrit sources repository
 
 clone:
