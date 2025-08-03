@@ -9,9 +9,11 @@ services:
       - cache-volume:/var/gerrit/cache
       - etc-volume:/var/gerrit/etc
     ports:
-      - "29418:29418"
-      - "8080:8080"
+      - 29418:29418
+      - 8080:8080
 
+# Note that since we're using volumes, the test data will persist even after `compose down`
+# (e.g., created groups that can't be removed)
 volumes:
   git-volume:
   index-volume:
