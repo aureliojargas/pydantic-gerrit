@@ -135,6 +135,10 @@ Some outputs require special compile options:
 We provide data models for all the supported Gerrit versions:
 <https://www.gerritcodereview.com/support.html#supported-versions>
 
+Changelog: <https://www.gerritcodereview.com/releases-readme.html>
+
+Maven releases: <https://central.sonatype.com/artifact/com.google.gerrit/gerrit-war/versions>
+
 ## Versions
 
 Latest: 3.12.0 (July 2025)
@@ -349,6 +353,8 @@ Should I use `__all__` to make all models available?
 - [Summary of Gerrit releases](https://www.gerritcodereview.com/releases-readme.html)
 
 - [Gerrit ticket to implement Swagger (OpenAPI)](https://issues.gerritcodereview.com/issues/40011133): Opened in 2019, not too many comments, but brings one important bit of information: "The Gerrit REST-API documentation is currently hand-written.". That means the documentation may be wrong, or not in sync with the code. That's why actual testing in a Gerrit instance is required.
+
+- [Tool to generate pydantic models](https://docs.pydantic.dev/latest/integrations/datamodel_code_generator/) many input sources, but none that I can use.
 
 ## Interesting Pydantic projects
 
