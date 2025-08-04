@@ -76,32 +76,6 @@ So if I really want to make sure the input models only contains valid fields, I 
 Some fields in the input models have leading underscores. Pydantic considers them private.
 We're using `alias=` in the model to fix the validation to accept the underscores, and `serialize_by_alias=True` in the base model to fix the serialization. See: <https://github.com/pydantic/pydantic/issues/8700>
 
-## Tests
-
-Steps:
-
-- `docker compose up`
-- Initial setup to be done only once:
-  - Access the Gerrit URL on port 8080
-  - Go to `settings/#HTTPCredentials` and generate a new password
-  - Add the password to `~/.netrc`, as `machine localhost login admin password ...`
-- Setup Python venv
-  - Setup venv: `uv sync`
-  - Activate venv: `source .venv/bin/activate.fish`
-- `pytest`
-
-Other:
-
-- Should I have full JSON files in the expected data and compare a full model dump?
-  - the diff would be nice to detect changes in the API
-  - variable data such as timestamps and ids will never match :/
-
-- Must be super readable and user-friendly (contributions), avoid magic
-
-- Use a Python Gerrit client library instead of directly querying the API?
-
-- Must test the full results, with all optional fields activated AND with value
-
 ## Today I Learned (TIL)
 
 Optional fields may appear only if the data is actually set.
