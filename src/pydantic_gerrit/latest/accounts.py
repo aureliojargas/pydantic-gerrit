@@ -34,7 +34,7 @@ class AccountInfo(BaseModelGerrit):
     )
     secondary_emails: list[str] | None = Field(
         default=None,
-        description='A list of the secondary email addresses of the user. Only set for account queries when the ALL_EMAILS option or the suggest parameter is set.',
+        description='A list of the secondary email addresses of the user. Only set for account queries when the ALL_EMAILS option or the suggest parameter is set. Secondary emails are only included if the calling user has the Modify Account, and hence is allowed to see secondary emails of other users.',
     )
     username: str | None = Field(
         default=None,
@@ -47,7 +47,7 @@ class AccountInfo(BaseModelGerrit):
     more_accounts: bool | None = Field(
         default=None,
         alias='_more_accounts',
-        description='Whether the query would deliver more results if not limited. Only set on the last account that is returned.',
+        description='Whether the query would deliver more results if not limited. Only set on the last account that is returned. (not set if false)',
     )
     status: str | None = Field(
         default=None,
@@ -55,11 +55,11 @@ class AccountInfo(BaseModelGerrit):
     )
     inactive: bool | None = Field(
         default=None,
-        description='Whether the account is inactive.',
+        description='Whether the account is inactive. (not set if false)',
     )
     tags: list[str] | None = Field(
         default=None,
-        description='List of additional tags that this account has. The only current tag an account can have is SERVICE_USER.',
+        description='List of additional tags that this account has. The only current tag an account can have is SERVICE_USER. Only set if detailed account information is requested. (not set if empty)',
     )
 
 

@@ -11,7 +11,7 @@ from .changes import GitPersonInfo, WebLinkInfo
 
 class TagInfo(BaseModelGerrit):
     """
-    Contains information about a tag.
+    The TagInfo entity contains information about a tag.
 
     https://gerrit-review.googlesource.com/Documentation/rest-api-projects.html#tag-info
 

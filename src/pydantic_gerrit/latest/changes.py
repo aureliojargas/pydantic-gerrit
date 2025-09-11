@@ -5,7 +5,7 @@ from pydantic_gerrit.base import BaseModelGerrit
 
 class GitPersonInfo(BaseModelGerrit):
     """
-    Contains information about the author/committer of a commit.
+    The GitPersonInfo entity contains information about the author/committer of a commit.
 
     https://gerrit-review.googlesource.com/Documentation/rest-api-changes.html#git-person-info
 
@@ -37,9 +37,9 @@ class GitPersonInfo(BaseModelGerrit):
 
 class WebLinkInfo(BaseModelGerrit):
     """
-    Describes a link to an external site.
+    The WebLinkInfo entity describes a link to an external site.
 
-    https://gerrit-review.googlesource.com/Documentation/rest-api-projects.html#web-link-info
+    https://gerrit-review.googlesource.com/Documentation/rest-api-changes.html#web-link-info
 
     Example:
         https://gerrit-review.googlesource.com/Documentation/rest-api-changes.html#get-edit-meta-data

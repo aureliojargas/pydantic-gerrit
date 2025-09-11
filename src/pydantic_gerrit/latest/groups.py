@@ -15,35 +15,44 @@ class GroupAuditEventInfo(BaseModelGerrit):
     https://gerrit-review.googlesource.com/Documentation/rest-api-groups.html#group-audit-event-info
     """
 
-    date: datetime = Field(
-        description='The timestamp of the event.',
+    member: 'AccountInfo | GroupInfo' = Field(
+        description='The group member that is added/removed. If type is ADD_USER or REMOVE_USER the member is returned as detailed AccountInfo entity, if type is ADD_GROUP or REMOVE_GROUP the member is returned as GroupInfo entity. Note that the name in GroupInfo will not be set if the member group is not available.'
+    )
+    type: Literal['ADD_USER', 'REMOVE_USER', 'ADD_GROUP', 'REMOVE_GROUP'] = Field(
+        description='The event type. ADD_USER: A user was added as member to the group. REMOVE_USER: A user member was removed from the group. ADD_GROUP: A group was included as member in the group. REMOVE_GROUP: An included group was removed from the group.',
     )
     user: AccountInfo = Field(
         description='The user that did the add/remove as detailed AccountInfo entity.',
     )
-    type: Literal['ADD_USER', 'REMOVE_USER', 'ADD_GROUP', 'REMOVE_GROUP'] = Field(
-        description='The event type.',
-    )
-    member: 'AccountInfo | GroupInfo' = Field(
-        description='The group member that is added/removed. If type is ADD_USER or REMOVE_USER the member is returned as detailed AccountInfo entity, if type is ADD_GROUP or REMOVE_GROUP the member is returned as GroupInfo entity. Note that the name in GroupInfo will not be set if the member group is not available.'
+    date: datetime = Field(
+        description='The timestamp of the event.',
     )
 
 
 class GroupInfo(BaseModelGerrit):
     """
-    Represents information about a Gerrit group.
+    The GroupInfo entity contains information about a group. This can be a Gerrit internal group, or an external group that is known to Gerrit.
+
+    The type of a group can be deduced from the group's UUID:
+
+        UUID matches "^[0-9a-f]{40}$" -> Gerrit internal group
+        UUID starts with "global:"    -> Gerrit system group
+        UUID starts with "ldap:"      -> LDAP group
+        UUID starts with "<prefix>:"  -> other external group
 
     https://gerrit-review.googlesource.com/Documentation/rest-api-groups.html#group-info
     """
 
-    id: str
+    id: str = Field(
+        description='The URL encoded UUID of the group.',
+    )
     name: str | None = Field(
         default=None,
-        description='The name of the group (optional). Not set if returned in a map where the group name is used as map key. For external groups the group name is missing if there is no group backend that can resolve the group UUID. E.g. this can happen when a plugin that provided a group backend was uninstalled.',
+        description='The name of the group. For external groups the group name is missing if there is no group backend that can resolve the group UUID. E.g. this can happen when a plugin that provided a group backend was uninstalled. (not set if returned in a map where the group name is used as map key)',
     )
     url: str | None = Field(
         default=None,
-        description='URL to information about the group (optional). Typically a URL to a web page that permits users to apply to join the group, or manage their membership.',
+        description='URL to information about the group. Typically a URL to a web page that permits users to apply to join the group, or manage their membership.',
     )
     options: 'GroupOptionsInfo' = Field(
         # Not optional, it is always set in the API response, even when empty: {}
@@ -51,36 +60,36 @@ class GroupInfo(BaseModelGerrit):
     )
     description: str | None = Field(
         default=None,
-        description='The description of the group (only for internal groups).',
+        description='The description of the group. (only for internal groups)',
     )
     group_id: int | None = Field(
         default=None,
-        description='The numeric ID of the group (only for internal groups).',
+        description='The numeric ID of the group. (only for internal groups)',
     )
     owner: str | None = Field(
         default=None,
-        description='The name of the owner group (only for internal groups).',
+        description='The name of the owner group. (only for internal groups)',
     )
     owner_id: str | None = Field(
         default=None,
-        description='The URL encoded UUID of the owner group (only for internal groups).',
+        description='The URL encoded UUID of the owner group. (only for internal groups)',
     )
     created_on: datetime | None = Field(
         default=None,
-        description='The timestamp of when the group was created (only for internal groups).',
+        description='The timestamp of when the group was created. (only for internal groups)',
     )
     more_groups: bool | None = Field(
         default=None,
         alias='_more_groups',
-        description='Whether the query would deliver more results if not limited (optional, only for internal groups, not set if false). Only set on the last group that is returned by a group query.',
+        description='Whether the query would deliver more results if not limited. Only set on the last group that is returned by a group query. (only for internal groups, not set if false)',
     )
     members: list[AccountInfo] | None = Field(
         default=None,
-        description='A list of AccountInfo entities describing the direct members (optional, only for internal groups). Only set if members are requested.',
+        description='A list of AccountInfo entities describing the direct members. Only set if members are requested. (only for internal groups)',
     )
     includes: list['GroupInfo'] | None = Field(
         default=None,
-        description='A list of GroupInfo entities describing the direct subgroups (optional, only for internal groups). Only set if subgroups are requested.',
+        description='A list of GroupInfo entities describing the direct subgroups. Only set if subgroups are requested. (only for internal groups)',
     )
 
 
@@ -95,23 +104,17 @@ class GroupInput(BaseModelGerrit):
         default=None,
         description='The name of the group (not encoded). If set, must match the group name in the URL.',
     )
-
-    # Documentation/rest-api-groups.txt:1620:|UUID matches "^[0-9a-f]\{40\}$"|Gerrit internal group
-    # Documentation/rest-api-groups.txt:1621:|UUID starts with "global:"|Gerrit system group
-    # Documentation/rest-api-groups.txt:1622:|UUID starts with "ldap:"|LDAP group
-    # Documentation/rest-api-groups.txt:1623:|UUID starts with "<prefix>:"|other external group
     uuid: str | None = Field(
         default=None,
-        description='The UUID of the group.',
+        description='The UUID of the group. See GroupInfo docstring for the format of the UUID.',
     )
-
     description: str | None = Field(
         default=None,
         description='The description of the group.',
     )
     visible_to_all: bool | None = Field(
         default=False,
-        description='Whether the group is visible to all registered users.',
+        description='Whether the group is visible to all registered users. (false if not set)',
     )
     owner_id: str | None = Field(
         default=None,
@@ -125,14 +128,14 @@ class GroupInput(BaseModelGerrit):
 
 class GroupOptionsInfo(BaseModelGerrit):
     """
-    Represents options for a Gerrit group.
+    Options of the group.
 
     https://gerrit-review.googlesource.com/Documentation/rest-api-groups.html#group-options-info
     """
 
     visible_to_all: bool | None = Field(
         default=None,
-        description='Whether the group is visible to all registered users. Not set if false.',
+        description='Whether the group is visible to all registered users. (not set if false)',
     )
 
 
@@ -145,7 +148,8 @@ class GroupOptionsInput(BaseModelGerrit):
 
     visible_to_all: bool | None = Field(
         default=False,
-        description='Whether the group is visible to all registered users.',
+        description='Whether the group is visible to all registered users. (not set if false)',
+        # TODO(aj): Is it really "not set if false" or is it "false if not set" as in GroupInput.visible_to_all? Depending on the answer, also revise the default value, shouldn't it be None?
     )
 
 
