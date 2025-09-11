@@ -16,12 +16,17 @@ class AccountInfo(BaseModelGerrit):
     https://gerrit-review.googlesource.com/Documentation/rest-api-accounts.html#account-info
     """
 
-    account_id: int = Field(alias='_account_id', description='The numeric ID of the account.')
+    account_id: int = Field(
+        alias='_account_id',
+        description='The numeric ID of the account.',
+    )
     name: str | None = Field(
-        default=None, description='The full name of the user. Only set if detailed account information is requested.'
+        default=None,
+        description='The full name of the user. Only set if detailed account information is requested.',
     )
     display_name: str | None = Field(
-        default=None, description='The display name of the user. Only set if detailed account information is requested.'
+        default=None,
+        description='The display name of the user. Only set if detailed account information is requested.',
     )
     email: str | None = Field(
         default=None,
@@ -32,7 +37,8 @@ class AccountInfo(BaseModelGerrit):
         description='A list of the secondary email addresses of the user. Only set for account queries when the ALL_EMAILS option or the suggest parameter is set.',
     )
     username: str | None = Field(
-        default=None, description='The username of the user. Only set if detailed account information is requested.'
+        default=None,
+        description='The username of the user. Only set if detailed account information is requested.',
     )
     avatars: list['AvatarInfo'] | None = Field(
         default=None,
@@ -43,8 +49,14 @@ class AccountInfo(BaseModelGerrit):
         alias='_more_accounts',
         description='Whether the query would deliver more results if not limited. Only set on the last account that is returned.',
     )
-    status: str | None = Field(default=None, description='Status message of the account.')
-    inactive: bool | None = Field(default=None, description='Whether the account is inactive.')
+    status: str | None = Field(
+        default=None,
+        description='Status message of the account.',
+    )
+    inactive: bool | None = Field(
+        default=None,
+        description='Whether the account is inactive.',
+    )
     tags: list[str] | None = Field(
         default=None,
         description='List of additional tags that this account has. The only current tag an account can have is SERVICE_USER.',
@@ -58,5 +70,9 @@ class AvatarInfo(BaseModelGerrit):
     https://gerrit-review.googlesource.com/Documentation/rest-api-accounts.html#avatar-info
     """
 
-    url: str = Field(description='The URL to the avatar image.')
-    height: int = Field(description='The height of the avatar image in pixels.')
+    url: str = Field(
+        description='The URL to the avatar image.',
+    )
+    height: int = Field(
+        description='The height of the avatar image in pixels.',
+    )
