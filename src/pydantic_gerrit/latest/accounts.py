@@ -65,7 +65,7 @@ class AccountInfo(BaseModelGerrit):
 
 class AvatarInfo(BaseModelGerrit):
     """
-    The AccountInfo entity contains information about an avatar image of an account.
+    The AvatarInfo entity contains information about an avatar image of an account.
 
     https://gerrit-review.googlesource.com/Documentation/rest-api-accounts.html#avatar-info
     """
