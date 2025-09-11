@@ -9,6 +9,29 @@ from pydantic_gerrit.base import BaseModelGerrit
 from .changes import GitPersonInfo, WebLinkInfo
 
 
+class BranchInfo(BaseModelGerrit):
+    """
+    The BranchInfo entity contains information about a branch.
+
+    https://gerrit-review.googlesource.com/Documentation/rest-api-projects.html#branch-info
+    """
+
+    ref: str = Field(
+        description='The ref of the branch.',
+    )
+    revision: str = Field(
+        description='The revision to which the branch points.',
+    )
+    can_delete: bool | None = Field(
+        default=None,
+        description='Whether the calling user can delete this branch (not set if false)',
+    )
+    web_links: list[WebLinkInfo] | None = Field(
+        default=None,
+        description='Links to the branch in external sites as a list of WebLinkInfo entries.',
+    )
+
+
 class TagInfo(BaseModelGerrit):
     """
     The TagInfo entity contains information about a tag.
