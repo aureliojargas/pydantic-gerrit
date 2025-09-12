@@ -136,6 +136,57 @@ class DiffInfo(BaseModelGerrit):
     )
 
 
+class FileInfo(BaseModelGerrit):
+    """
+    The FileInfo entity contains information about a file in a revision.
+
+    https://gerrit-review.googlesource.com/Documentation/rest-api-changes.html#file-info
+    """
+
+    status: str | None = Field(
+        default=None,
+        description='The status of the file ("A"=Added, "D"=Deleted, "R"=Renamed, "C"=Copied, "W"=Rewritten). Not set if the file was Modified ("M").',
+    )
+    binary: bool | None = Field(
+        default=None,
+        description='Whether the file is binary. (not set if false)',
+    )
+    old_path: str | None = Field(
+        default=None,
+        description='The old file path. Only set if the file was renamed or copied.',
+    )
+    lines_inserted: int | None = Field(
+        default=None,
+        description='Number of inserted lines. Not set for binary files or if no lines were inserted. An empty last line is not included in the count and hence this number can differ by one from details provided in DiffInfo.',
+    )
+    lines_deleted: int | None = Field(
+        default=None,
+        description='Number of deleted lines. Not set for binary files or if no lines were deleted. An empty last line is not included in the count and hence this number can differ by one from details provided in DiffInfo.',
+    )
+    size_delta: int = Field(
+        description='Number of bytes by which the file size increased/decreased.',
+    )
+    size: int = Field(
+        description='File size in bytes.',
+    )
+    old_mode: int | None = Field(
+        default=None,
+        description='File mode in octal (e.g. 100644) at the old commit. The first three digits indicate the file type and the last three digits contain the file permission bits. For added files, this field will not be present.',
+    )
+    new_mode: int | None = Field(
+        default=None,
+        description='File mode in octal (e.g. 100644) at the new commit. The first three digits indicate the file type and the last three digits contain the file permission bits. For deleted files, this field will not be present.',
+    )
+    old_sha: str | None = Field(
+        default=None,
+        description='SHA-1 of the file content at the old commit. For added files, this field will not be present.',
+    )
+    new_sha: str | None = Field(
+        default=None,
+        description='SHA-1 of the file content at the new commit. For deleted files, this field will not be present.',
+    )
+
+
 class GitPersonInfo(BaseModelGerrit):
     """
     The GitPersonInfo entity contains information about the author/committer of a commit.
