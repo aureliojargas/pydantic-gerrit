@@ -8,7 +8,9 @@ This will print TypedDict definitions for the given models.
 """
 
 import importlib
+import pathlib
 import sys
+import json
 from typing import Any, Union, get_args, get_origin
 
 from pydantic import BaseModel
@@ -60,8 +62,13 @@ def main() -> None:
         module_name, class_name = arg.rsplit('.', 1)
         mod = importlib.import_module(module_name)
         model = getattr(mod, class_name)
-        print(model_to_typeddict(model))
-        print()
+
+        output_file = pathlib.Path(arg).with_suffix('.json')
+        output_file.write_text(json.dumps(model.model_json_schema(), indent=2))
+        print('Wrote schema to', output_file)
+
+        # print(model_to_typeddict(model))
+        # print()
 
 
 if __name__ == '__main__':

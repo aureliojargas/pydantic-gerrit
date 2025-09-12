@@ -1,0 +1,60 @@
+{
+  "additionalProperties": false,
+  "description": "The DiffWebLinkInfo entity extends WebLinkInfo and describes a link on a diff screen to an external site.\n\nhttps://gerrit-review.googlesource.com/Documentation/rest-api-changes.html#diff-web-link-info\n\nExample:\n    https://gerrit-review.googlesource.com/Documentation/rest-api-changes.html#get-edit-meta-data\n    {\n        \"show_on_side_by_side_diff_view\": true,\n        \"name\": \"side-by-side preview diff\",\n        \"image_url\": \"plugins/xdocs/static/sideBySideDiffPreview.png\",\n        \"url\": \"#/x/xdocs/c/42/1..0/README.md\",\n        \"target\": \"_self\"\n    }",
+  "properties": {
+    "name": {
+      "description": "The text to be linkified.",
+      "title": "Name",
+      "type": "string"
+    },
+    "tooltip": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Tooltip to show when hovering over the link. Using \"Open in $NAME_OF_EXTERNAL_TOOL\" is a good option here.",
+      "title": "Tooltip"
+    },
+    "url": {
+      "description": "The link URL.",
+      "title": "Url",
+      "type": "string"
+    },
+    "image_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "URL to the icon of the link.",
+      "title": "Image Url"
+    },
+    "show_on_side_by_side_diff_view": {
+      "description": "Whether the web link should be shown on the side-by-side diff screen.",
+      "title": "Show On Side By Side Diff View",
+      "type": "boolean"
+    },
+    "show_on_unified_diff_view": {
+      "description": "Whether the web link should be shown on the unified diff screen.",
+      "title": "Show On Unified Diff View",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "name",
+    "url",
+    "show_on_side_by_side_diff_view",
+    "show_on_unified_diff_view"
+  ],
+  "title": "DiffWebLinkInfo",
+  "type": "object"
+}
