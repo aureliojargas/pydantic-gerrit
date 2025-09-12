@@ -320,6 +320,17 @@ Should I use `__all__` to make all models available?
 - Document (or even publish) that one can convert Pydantic models to TypedDict: <https://github.com/unclecode/pydantype>.
   - Useful for those not using Pydantic models in their code, but still want to type the JSON results.
 
+  - If I want to publish the TypedDicts:
+
+      ```python
+      # for Pydantic
+      from pydantic_gerrit.latest.changes import FileInfo
+      # for TypedDicts
+      from pydantic_gerrit.typeddicts.changes import FileInfoDict
+      ```
+
+This keeps the namespaces clear, avoids confusion, and makes it easy for
+
 ## References
 
 - [Rest API docs](https://gerrit-review.googlesource.com/Documentation/rest-api.html): This the most up-to-date docs.
