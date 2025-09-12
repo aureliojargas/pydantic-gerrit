@@ -4,6 +4,8 @@ from pydantic import Field
 
 from pydantic_gerrit.base import BaseModelGerrit
 
+ChangeType = Literal['ADDED', 'MODIFIED', 'DELETED', 'RENAMED', 'COPIED', 'REWRITE']
+IntralineStatus = Literal['OK', 'ERROR', 'TIMEOUT']
 
 # The DiffIntralineInfo entity contains information about intraline edits in a file.
 #
@@ -107,10 +109,10 @@ class DiffInfo(BaseModelGerrit):
         default=None,
         description='Meta information about the file on side B as a DiffFileMetaInfo entity. (not present when the file is deleted)',
     )
-    change_type: Literal['ADDED', 'MODIFIED', 'DELETED', 'RENAMED', 'COPIED', 'REWRITE'] = Field(
+    change_type: ChangeType = Field(
         description='The type of change',
     )
-    intraline_status: Literal['OK', 'ERROR', 'TIMEOUT'] | None = Field(
+    intraline_status: IntralineStatus | None = Field(
         default=None,
         description='Intraline status. (only set when the intraline parameter was specified in the request)',
     )

@@ -7,6 +7,8 @@ from pydantic_gerrit.base import BaseModelGerrit
 
 from .accounts import AccountInfo
 
+GroupAuditEventType = Literal['ADD_USER', 'REMOVE_USER', 'ADD_GROUP', 'REMOVE_GROUP']
+
 
 class GroupAuditEventInfo(BaseModelGerrit):
     """
@@ -18,7 +20,7 @@ class GroupAuditEventInfo(BaseModelGerrit):
     member: 'AccountInfo | GroupInfo' = Field(
         description='The group member that is added/removed. If type is ADD_USER or REMOVE_USER the member is returned as detailed AccountInfo entity, if type is ADD_GROUP or REMOVE_GROUP the member is returned as GroupInfo entity. Note that the name in GroupInfo will not be set if the member group is not available.'
     )
-    type: Literal['ADD_USER', 'REMOVE_USER', 'ADD_GROUP', 'REMOVE_GROUP'] = Field(
+    type: GroupAuditEventType = Field(
         description='The event type. ADD_USER: A user was added as member to the group. REMOVE_USER: A user member was removed from the group. ADD_GROUP: A group was included as member in the group. REMOVE_GROUP: An included group was removed from the group.',
     )
     user: AccountInfo = Field(
