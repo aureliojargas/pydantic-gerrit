@@ -58,21 +58,7 @@
       "type": "array",
       "description": "Groups that are included in this group",
       "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "The UUID of the included group"
-          },
-          "name": {
-            "type": "string",
-            "description": "The name of the included group"
-          },
-          "description": {
-            "type": "string",
-            "description": "The description of the included group"
-          }
-        }
+        "$ref": "groups.json#/GroupInfo"
       }
     },
     "members_count": {

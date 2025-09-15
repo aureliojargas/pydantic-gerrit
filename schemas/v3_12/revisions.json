@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RevisionInfo",
+  "description": "Information about a specific revision of a change",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": ["REWORK", "TRIVIAL_REBASE", "MERGE_FIRST_PARENT_UPDATE", "NO_CODE_CHANGE", "NO_CHANGE"],
+      "description": "The change kind"
+    },
+    "number": {
+      "type": "integer",
+      "description": "The patch set number"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of when the patch set was created"
+    },
+    "uploader": {
+      "$ref": "accounts.json#/AccountInfo",
+      "description": "The uploader of the patch set"
+    },
+    "ref": {
+      "type": "string",
+      "description": "The Git reference for the patch set"
+    },
+    "fetch": {
+      "type": "object",
+      "description": "Information for fetching this patch set",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "ref": {
+            "type": "string"
+          },
+          "commands": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "commit": {
+      "$ref": "commits.json#/CommitInfo",
+      "description": "The commit of the patch set"
+    },
+    "files": {
+      "type": "object",
+      "description": "The files in the patch set",
+      "additionalProperties": {
+        "$ref": "files.json#/FileInfo"
+      }
+    }
+  }
+}

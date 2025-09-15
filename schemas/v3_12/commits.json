@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CommitInfo",
+  "description": "Information about a Git commit",
+  "type": "object",
+  "properties": {
+    "commit": {
+      "type": "string",
+      "description": "The commit SHA-1"
+    },
+    "parents": {
+      "type": "array",
+      "description": "The parent commits of this commit",
+      "items": {
+        "type": "object",
+        "properties": {
+          "commit": {
+            "type": "string",
+            "description": "The commit SHA-1"
+          },
+          "subject": {
+            "type": "string",
+            "description": "The subject line of the commit message"
+          }
+        }
+      }
+    },
+    "author": {
+      "$ref": "git-person.json#/GitPersonInfo",
+      "description": "The author of the commit"
+    },
+    "committer": {
+      "$ref": "git-person.json#/GitPersonInfo",
+      "description": "The committer of the commit"
+    },
+    "subject": {
+      "type": "string",
+      "description": "The subject line of the commit message"
+    },
+    "message": {
+      "type": "string",
+      "description": "The full commit message"
+    }
+  }
+}
