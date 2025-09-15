@@ -1,14 +1,17 @@
 [project]
-name = "pydantic_gerrit"
+name = "gerrit-schemas"
 version = "0.1.0"
-description = "Pydantic data models for the Gerrit REST API"
+description = "JSON Schema definitions and generated Python models for the Gerrit REST API"
 license = "MIT"
 authors = [{ name = "Aurelio Jargas", email = "verde@aurelio.net" }]
 readme = "README.md"
-urls.repository = "https://github.com/aureliojargas/pydantic-gerrit"
+urls.repository = "https://github.com/aureliojargas/gerrit-schemas"
 
 requires-python = ">=3.10"
-dependencies = ["pydantic>=2.11.7"]
+dependencies = [
+    "pydantic>=2.11.7",
+    "typing-extensions>=4.8.0",  # For Python 3.10 compatibility
+]
 
 [dependency-groups]
 dev = [
@@ -16,12 +19,11 @@ dev = [
     "pre-commit==4.2.0",
     "pre-commit-hooks==5.0.0",
     "ruff==0.12.0",
-    "types-requests==2.32.4.20250611",
+    "datamodel-code-generator==0.25.4",  # For generating Python models
 ]
 test = [
     "pytest==8.4.1",
     "pytest-mock==3.14.1",
-    "requests>=2.32.4",
 ]
 
 [tool.uv]

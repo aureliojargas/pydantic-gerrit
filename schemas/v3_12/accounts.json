@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "AccountInfo",
+    "description": "Account information for Gerrit users",
+    "type": "object",
+    "properties": {
+        "_account_id": {
+            "type": "integer",
+            "description": "The numeric ID of the account"
+        },
+        "name": {
+            "type": "string",
+            "description": "The full name of the user"
+        },
+        "email": {
+            "type": "string",
+            "description": "The email address of the account the user prefers to be contacted through"
+        },
+        "secondary_emails": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "A list of secondary email addresses of the account"
+        },
+        "username": {
+            "type": "string",
+            "description": "The username of the account"
+        },
+        "display_name": {
+            "type": "string",
+            "description": "The display name of the account"
+        },
+        "status": {
+            "type": "string",
+            "description": "The status message of the account"
+        },
+        "inactive": {
+            "type": "boolean",
+            "description": "Whether the account is inactive"
+        },
+        "tags": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "A list of account tags"
+        }
+    },
+    "required": ["_account_id"]
+}
