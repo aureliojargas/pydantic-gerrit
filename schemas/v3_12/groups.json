@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GroupInfo",
+  "description": "Group information from Gerrit",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The UUID of the group"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the group"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL to information about the group"
+    },
+    "options": {
+      "type": "object",
+      "description": "Options of the group",
+      "properties": {
+        "visible_to_all": {
+          "type": "boolean",
+          "description": "Whether the group is visible to all registered users"
+        }
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the group"
+    },
+    "group_id": {
+      "type": "integer",
+      "description": "The numeric ID of the group"
+    },
+    "owner": {
+      "type": "string",
+      "description": "The UUID of the owner group"
+    },
+    "owner_id": {
+      "type": "string",
+      "description": "The UUID of the owner group"
+    },
+    "created_on": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of when the group was created"
+    },
+    "members": {
+      "type": "array",
+      "description": "Members of the group",
+      "items": {
+        "$ref": "accounts.json#/AccountInfo"
+      }
+    },
+    "includes": {
+      "type": "array",
+      "description": "Groups that are included in this group",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The UUID of the included group"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the included group"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the included group"
+          }
+        }
+      }
+    },
+    "members_count": {
+      "type": "integer",
+      "description": "Number of members in the group"
+    },
+    "includes_count": {
+      "type": "integer",
+      "description": "Number of groups included in this group"
+    },
+    "_more_groups": {
+      "type": "boolean",
+      "description": "Whether more groups are available"
+    },
+    "audit_log": {
+      "type": "array",
+      "description": "The audit log of the group",
+      "items": {
+        "type": "object",
+        "properties": {
+          "member": {
+            "$ref": "accounts.json#/AccountInfo",
+            "description": "Account that was added/removed"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["ADD_USER", "REMOVE_USER", "ADD_GROUP", "REMOVE_GROUP"],
+            "description": "Type of the audit event"
+          },
+          "user": {
+            "$ref": "accounts.json#/AccountInfo",
+            "description": "User that performed the action"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of when the action was performed"
+          }
+        }
+      }
+    }
+  },
+  "required": ["id", "name"]
+}

@@ -1,0 +1,416 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChangeInfo",
+  "description": "Change information from Gerrit",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The ID of the change in the format \"<project>~<branch>~<Change-Id>\""
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project"
+    },
+    "branch": {
+      "type": "string",
+      "description": "The name of the target branch"
+    },
+    "topic": {
+      "type": "string",
+      "description": "The topic to which this change belongs"
+    },
+    "change_id": {
+      "type": "string",
+      "description": "The Change-Id of the change"
+    },
+    "subject": {
+      "type": "string",
+      "description": "The subject of the change (header line of the commit message)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["NEW", "MERGED", "ABANDONED", "DRAFT"],
+      "description": "The status of the change"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of when the change was created"
+    },
+    "updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of when the change was last updated"
+    },
+    "submitted": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of when the change was submitted"
+    },
+    "submitter": {
+      "$ref": "accounts.json#/AccountInfo"
+    },
+    "owner": {
+      "$ref": "accounts.json#/AccountInfo"
+    },
+    "reviewers": {
+      "type": "object",
+      "description": "The reviewers of the change",
+      "properties": {
+        "REVIEWER": {
+          "type": "array",
+          "items": {
+            "$ref": "accounts.json#/AccountInfo"
+          }
+        },
+        "CC": {
+          "type": "array",
+          "items": {
+            "$ref": "accounts.json#/AccountInfo"
+          }
+        },
+        "REMOVED": {
+          "type": "array",
+          "items": {
+            "$ref": "accounts.json#/AccountInfo"
+          }
+        }
+      }
+    },
+    "labels": {
+      "type": "object",
+      "description": "The labels of the change",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "approved": {
+            "$ref": "accounts.json#/AccountInfo"
+          },
+          "rejected": {
+            "$ref": "accounts.json#/AccountInfo"
+          },
+          "recommended": {
+            "$ref": "accounts.json#/AccountInfo"
+          },
+          "disliked": {
+            "$ref": "accounts.json#/AccountInfo"
+          },
+          "value": {
+            "type": "integer",
+            "description": "The voting value"
+          },
+          "default_value": {
+            "type": "integer",
+            "description": "The default voting value"
+          },
+          "values": {
+            "type": "object",
+            "description": "Maps the vote values (-2, -1, 0, +1, +2) to their descriptions"
+          },
+          "all": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "integer"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "account": {
+                  "$ref": "accounts.json#/AccountInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "permitted_labels": {
+      "type": "object",
+      "description": "The labels that are permitted for the change",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "removable_reviewers": {
+      "type": "array",
+      "description": "The list of reviewers that can be removed",
+      "items": {
+        "$ref": "accounts.json#/AccountInfo"
+      }
+    },
+    "messages": {
+      "type": "array",
+      "description": "The messages associated with the change",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "author": {
+            "$ref": "accounts.json#/AccountInfo"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "message": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "current_revision": {
+      "type": "string",
+      "description": "The SHA-1 of current patch set"
+    },
+    "revisions": {
+      "type": "object",
+      "description": "All patch sets of this change",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["REWORK", "TRIVIAL_REBASE", "MERGE_FIRST_PARENT_UPDATE", "NO_CODE_CHANGE", "NO_CHANGE"],
+            "description": "The change kind"
+          },
+          "number": {
+            "type": "integer",
+            "description": "The patch set number"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The timestamp of when the patch set was created"
+          },
+          "uploader": {
+            "$ref": "accounts.json#/AccountInfo",
+            "description": "The uploader of the patch set"
+          },
+          "ref": {
+            "type": "string",
+            "description": "The Git reference for the patch set"
+          },
+          "fetch": {
+            "type": "object",
+            "description": "Information for fetching this patch set",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "ref": {
+                  "type": "string"
+                },
+                "commands": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "commit": {
+            "type": "object",
+            "description": "The commit of the patch set",
+            "properties": {
+              "parents": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "commit": {
+                      "type": "string"
+                    },
+                    "subject": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "author": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "tz": {
+                    "type": "string"
+                  }
+                }
+              },
+              "committer": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "tz": {
+                    "type": "string"
+                  }
+                }
+              },
+              "subject": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          },
+          "files": {
+            "type": "object",
+            "description": "The files in the patch set",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": ["A", "D", "R", "C", "W"],
+                  "description": "File status (A=Added, D=Deleted, R=Renamed, C=Copied, W=Rewritten)"
+                },
+                "binary": {
+                  "type": "boolean",
+                  "description": "Whether the file is binary"
+                },
+                "old_path": {
+                  "type": "string",
+                  "description": "Old path in case the file was moved"
+                },
+                "lines_inserted": {
+                  "type": "integer",
+                  "description": "Number of inserted lines"
+                },
+                "lines_deleted": {
+                  "type": "integer",
+                  "description": "Number of deleted lines"
+                },
+                "size_delta": {
+                  "type": "integer",
+                  "description": "Size change in bytes"
+                },
+                "size": {
+                  "type": "integer",
+                  "description": "File size in bytes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "hashtags": {
+      "type": "array",
+      "description": "The hashtags associated with the change",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_changes": {
+      "type": "array",
+      "description": "Related changes",
+      "items": {
+        "type": "object",
+        "properties": {
+          "change_id": {
+            "type": "string"
+          },
+          "project": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "attention_set": {
+      "type": "object",
+      "description": "The users in the attention set",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "$ref": "accounts.json#/AccountInfo"
+          },
+          "last_update": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "pending_reviewers": {
+      "type": "object",
+      "description": "The reviewers that need to be added",
+      "properties": {
+        "REVIEWER": {
+          "type": "array",
+          "items": {
+            "$ref": "accounts.json#/AccountInfo"
+          }
+        },
+        "CC": {
+          "type": "array",
+          "items": {
+            "$ref": "accounts.json#/AccountInfo"
+          }
+        }
+      }
+    },
+    "work_in_progress": {
+      "type": "boolean",
+      "description": "Whether the change is work in progress"
+    },
+    "private": {
+      "type": "boolean",
+      "description": "Whether the change is private"
+    },
+    "is_private": {
+      "type": "boolean",
+      "description": "Whether the change is private"
+    },
+    "review_started": {
+      "type": "boolean",
+      "description": "Whether the review has been started"
+    }
+  },
+  "required": ["id", "project", "branch", "change_id"]
+}

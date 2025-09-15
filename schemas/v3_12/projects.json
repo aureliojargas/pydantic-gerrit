@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProjectInfo",
+  "description": "Project information from Gerrit",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The URL encoded project name"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the project"
+    },
+    "parent": {
+      "type": "string",
+      "description": "The name of the parent project"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the project"
+    },
+    "state": {
+      "type": "string",
+      "enum": ["ACTIVE", "READ_ONLY", "HIDDEN"],
+      "description": "The state of the project"
+    },
+    "labels": {
+      "type": "object",
+      "description": "The labels that are configured for the project",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "function": {
+            "type": "string",
+            "enum": ["MaxWithBlock", "MaxNoBlock", "NoBlock", "NoOp", "PatchSetLock"],
+            "description": "The function used for label values"
+          },
+          "default_value": {
+            "type": "integer",
+            "description": "The default value for the label"
+          },
+          "copy_condition": {
+            "type": "string",
+            "description": "Condition for copying votes forward"
+          },
+          "copy_min_score": {
+            "type": "integer",
+            "description": "Minimum score needed to copy votes forward"
+          },
+          "copy_max_score": {
+            "type": "integer",
+            "description": "Maximum score allowed to copy votes forward"
+          },
+          "copy_all_scores_if_list_of_files_did_not_change": {
+            "type": "boolean",
+            "description": "Whether to copy all scores if file list is unchanged"
+          },
+          "copy_all_scores_on_trivial_rebase": {
+            "type": "boolean",
+            "description": "Whether to copy all scores on trivial rebase"
+          },
+          "copy_all_scores_on_merge_first_parent_update": {
+            "type": "boolean",
+            "description": "Whether to copy all scores on merge parent update"
+          },
+          "can_override": {
+            "type": "boolean",
+            "description": "Whether the label can be overridden"
+          },
+          "values": {
+            "type": "object",
+            "description": "Values and texts for the label",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "web_links": {
+      "type": "array",
+      "description": "Links to the project in external systems",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the link"
+          },
+          "url": {
+            "type": "string",
+            "description": "The URL of the link"
+          },
+          "target": {
+            "type": "string",
+            "description": "The target of the link"
+          }
+        }
+      }
+    },
+    "themes": {
+      "type": "array",
+      "description": "The list of theme names for the project",
+      "items": {
+        "type": "string"
+      }
+    },
+    "branches": {
+      "type": "array",
+      "description": "The list of branches in the project",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string",
+            "description": "The Git reference name"
+          },
+          "revision": {
+            "type": "string",
+            "description": "The Git commit hash"
+          },
+          "can_delete": {
+            "type": "boolean",
+            "description": "Whether the branch can be deleted"
+          }
+        }
+      }
+    },
+    "config": {
+      "type": "object",
+      "description": "The project configuration",
+      "properties": {
+        "max_object_size_limit": {
+          "type": "string",
+          "description": "Maximum allowed Git object size"
+        },
+        "submit_type": {
+          "type": "string",
+          "enum": ["MERGE_IF_NECESSARY", "FAST_FORWARD_ONLY", "REBASE_IF_NECESSARY", "REBASE_ALWAYS", "MERGE_ALWAYS", "CHERRY_PICK"],
+          "description": "The submit type for the project"
+        },
+        "state": {
+          "type": "string",
+          "enum": ["ACTIVE", "READ_ONLY", "HIDDEN"],
+          "description": "The state of the project"
+        },
+        "commentlinks": {
+          "type": "object",
+          "description": "Comment link configuration",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "match": {
+                "type": "string",
+                "description": "Regular expression to match comments"
+              },
+              "link": {
+                "type": "string",
+                "description": "Link template"
+              },
+              "html": {
+                "type": "string",
+                "description": "HTML template"
+              },
+              "enabled": {
+                "type": "boolean",
+                "description": "Whether the comment link is enabled"
+              }
+            }
+          }
+        },
+        "plugin_config": {
+          "type": "object",
+          "description": "Plugin-specific configuration",
+          "additionalProperties": true
+        },
+        "actions": {
+          "type": "object",
+          "description": "Actions that can be executed on the project",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "method": {
+                "type": "string",
+                "description": "HTTP method to use"
+              },
+              "label": {
+                "type": "string",
+                "description": "Short description of the action"
+              },
+              "title": {
+                "type": "string",
+                "description": "Longer description of the action"
+              },
+              "enabled": {
+                "type": "boolean",
+                "description": "Whether the action is enabled"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["id", "name"]
+}

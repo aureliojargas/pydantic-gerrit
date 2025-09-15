@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AccessRightsInfo",
+  "description": "Access rights information for projects",
+  "type": "object",
+  "properties": {
+    "revision": {
+      "type": "string",
+      "description": "Configuration revision as base64 encoded SHA1 of the refs/meta/config branch"
+    },
+    "inheritsFrom": {
+      "type": "object",
+      "description": "Project from which these access rights are inherited",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The identifier of the project"
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the project"
+        },
+        "web_links": {
+          "type": "array",
+          "description": "Links to the project in external systems",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the link"
+              },
+              "url": {
+                "type": "string",
+                "description": "The URL of the link"
+              },
+              "target": {
+                "type": "string",
+                "description": "The target of the link"
+              }
+            }
+          }
+        }
+      }
+    },
+    "local": {
+      "type": "object",
+      "description": "Access sections for this project",
+      "additionalProperties": {
+        "type": "object",
+        "description": "Access section keyed by ref pattern",
+        "properties": {
+          "permissions": {
+            "type": "object",
+            "description": "Permissions in this section",
+            "additionalProperties": {
+              "type": "object",
+              "description": "Permission definition",
+              "properties": {
+                "rules": {
+                  "type": "object",
+                  "description": "Rules for this permission",
+                  "additionalProperties": {
+                    "type": "object",
+                    "description": "Rule definition keyed by group UUID",
+                    "properties": {
+                      "action": {
+                        "type": "string",
+                        "enum": ["ALLOW", "DENY", "BLOCK", "INTERACTIVE", "BATCH"],
+                        "description": "Action of this rule"
+                      },
+                      "force": {
+                        "type": "boolean",
+                        "description": "Whether this rule is forcing the action"
+                      },
+                      "min": {
+                        "type": "integer",
+                        "description": "Minimum value for range permission"
+                      },
+                      "max": {
+                        "type": "integer",
+                        "description": "Maximum value for range permission"
+                      }
+                    }
+                  }
+                },
+                "label": {
+                  "type": "string",
+                  "description": "Name of the label if this is a label permission"
+                },
+                "exclusive": {
+                  "type": "boolean",
+                  "description": "Whether this permission is exclusive"
+                }
+              }
+            }
+          },
+          "groups": {
+            "type": "object",
+            "description": "Groups used in the access section",
+            "additionalProperties": {
+              "type": "object",
+              "description": "Group information",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "description": "URL to the group"
+                },
+                "options": {
+                  "type": "object",
+                  "description": "Group options",
+                  "properties": {
+                    "visible_to_all": {
+                      "type": "boolean",
+                      "description": "Whether the group is visible to all users"
+                    }
+                  }
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the group"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

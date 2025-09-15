@@ -14,7 +14,7 @@
         },
         "email": {
             "type": "string",
-            "description": "The email address of the account the user prefers to be contacted through"
+            "description": "The preferred email address of the account"
         },
         "secondary_emails": {
             "type": "array",
@@ -45,6 +45,90 @@
                 "type": "string"
             },
             "description": "A list of account tags"
+        },
+        "avatars": {
+            "type": "array",
+            "description": "List of avatar images",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "description": "URL to the avatar image"
+                    },
+                    "height": {
+                        "type": "integer",
+                        "description": "Height of the avatar image in pixels"
+                    }
+                }
+            }
+        },
+        "registered_on": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of when the account was registered"
+        },
+        "state": {
+            "type": "string",
+            "description": "State of the account",
+            "enum": ["ACTIVE", "INACTIVE"]
+        },
+        "http_password": {
+            "type": "string",
+            "description": "HTTP password for authentication with the Gerrit REST API"
+        },
+        "preferences": {
+            "type": "object",
+            "description": "Account preferences",
+            "properties": {
+                "changes_per_page": {
+                    "type": "integer",
+                    "description": "Number of changes to show per page"
+                },
+                "show_site_header": {
+                    "type": "boolean",
+                    "description": "Whether to show the site header"
+                },
+                "use_flash_clipboard": {
+                    "type": "boolean",
+                    "description": "Whether to use the Flash clipboard widget"
+                },
+                "date_format": {
+                    "type": "string",
+                    "description": "Date format preference",
+                    "enum": ["STD", "US", "ISO", "EURO", "UK"]
+                },
+                "time_format": {
+                    "type": "string",
+                    "description": "Time format preference",
+                    "enum": ["HHMM_12", "HHMM_24"]
+                },
+                "relative_date_in_change_table": {
+                    "type": "boolean",
+                    "description": "Whether to show relative dates in change tables"
+                },
+                "diff_view": {
+                    "type": "string",
+                    "description": "Default diff view",
+                    "enum": ["SIDE_BY_SIDE", "UNIFIED_DIFF"]
+                },
+                "size_bar_in_change_table": {
+                    "type": "boolean",
+                    "description": "Whether to show the file size bars in change tables"
+                },
+                "review_category_strategy": {
+                    "type": "string",
+                    "description": "Default strategy for showing review categories",
+                    "enum": ["NONE", "NAME", "EMAIL", "USERNAME", "ABBREV"]
+                },
+                "my_menu_items": {
+                    "type": "array",
+                    "description": "Menu items to show in the 'My' menu",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
         }
     },
     "required": ["_account_id"]
