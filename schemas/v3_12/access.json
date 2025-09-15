@@ -24,21 +24,7 @@
           "type": "array",
           "description": "Links to the project in external systems",
           "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "The name of the link"
-              },
-              "url": {
-                "type": "string",
-                "description": "The URL of the link"
-              },
-              "target": {
-                "type": "string",
-                "description": "The target of the link"
-              }
-            }
+            "$ref": "web-links.json#/WebLinkInfo"
           }
         }
       }

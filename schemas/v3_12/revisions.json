@@ -49,7 +49,7 @@
     },
     "commit": {
       "$ref": "commits.json#/CommitInfo",
-      "description": "The commit of the patch set"
+      "description": "The commit of this revision"
     },
     "files": {
       "type": "object",

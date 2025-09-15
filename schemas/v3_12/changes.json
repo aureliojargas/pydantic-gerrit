@@ -82,50 +82,53 @@
       "type": "object",
       "description": "The labels of the change",
       "additionalProperties": {
-        "type": "object",
-        "properties": {
-          "approved": {
-            "$ref": "accounts.json#/AccountInfo"
-          },
-          "rejected": {
-            "$ref": "accounts.json#/AccountInfo"
-          },
-          "recommended": {
-            "$ref": "accounts.json#/AccountInfo"
-          },
-          "disliked": {
-            "$ref": "accounts.json#/AccountInfo"
-          },
-          "value": {
-            "type": "integer",
-            "description": "The voting value"
-          },
-          "default_value": {
-            "type": "integer",
-            "description": "The default voting value"
-          },
-          "values": {
+        "allOf": [
+          { "$ref": "labels.json#/LabelInfo" },
+          {
             "type": "object",
-            "description": "Maps the vote values (-2, -1, 0, +1, +2) to their descriptions"
-          },
-          "all": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "integer"
-                },
-                "date": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "account": {
-                  "$ref": "accounts.json#/AccountInfo"
+            "properties": {
+              "approved": {
+                "$ref": "accounts.json#/AccountInfo"
+              },
+              "rejected": {
+                "$ref": "accounts.json#/AccountInfo"
+              },
+              "recommended": {
+                "$ref": "accounts.json#/AccountInfo"
+              },
+              "disliked": {
+                "$ref": "accounts.json#/AccountInfo"
+              },
+              "value": {
+                "type": "integer",
+                "description": "The voting value"
+              },
+              "default_value": {
+                "type": "integer",
+                "description": "The default voting value"
+              },
+              "values": {
+                "type": "object",
+                "description": "Maps the vote values (-2, -1, 0, +1, +2) to their descriptions"
+              },
+              "all": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "integer"
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "account": {
+                      "$ref": "accounts.json#/AccountInfo"
+                    }
+                  }
                 }
               }
-            }
-          }
         }
       }
     },
@@ -181,8 +184,6 @@
       "additionalProperties": {
         "$ref": "revisions.json#/RevisionInfo"
       }
-        }
-      }
     },
     "hashtags": {
       "type": "array",
@@ -195,24 +196,7 @@
       "type": "array",
       "description": "Related changes",
       "items": {
-        "type": "object",
-        "properties": {
-          "change_id": {
-            "type": "string"
-          },
-          "project": {
-            "type": "string"
-          },
-          "branch": {
-            "type": "string"
-          },
-          "topic": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        }
+        "$ref": "#/ChangeInfo"
       }
     },
     "attention_set": {
