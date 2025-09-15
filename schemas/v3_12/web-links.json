@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WebLinkInfo",
+  "description": "Information about a link to an external system",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the link"
+    },
+    "url": {
+      "type": "string",
+      "description": "The URL of the link"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "URL to the icon of the link provider"
+    },
+    "target": {
+      "type": "string",
+      "description": "The target window/tab for opening the link"
+    },
+    "tooltip": {
+      "type": "string",
+      "description": "The tooltip to show when hovering over the link"
+    }
+  },
+  "required": ["name", "url"]
+}

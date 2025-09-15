@@ -9,12 +9,12 @@
       "description": "Gerrit configuration details",
       "properties": {
         "all_projects": {
-          "type": "string",
-          "description": "Name of the project that serves as source for the default access rights"
+          "$ref": "projects.json#/ProjectInfo",
+          "description": "Project that serves as source for the default access rights"
         },
         "all_users": {
-          "type": "string",
-          "description": "Name of the project that serves as source for default user preferences"
+          "$ref": "projects.json#/ProjectInfo",
+          "description": "Project that serves as source for default user preferences"
         }
       }
     }

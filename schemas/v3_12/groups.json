@@ -35,12 +35,12 @@
       "description": "The numeric ID of the group"
     },
     "owner": {
-      "type": "string",
-      "description": "The UUID of the owner group"
+      "$ref": "groups.json#/GroupInfo",
+      "description": "The owner group"
     },
     "owner_id": {
       "type": "string",
-      "description": "The UUID of the owner group"
+      "description": "The UUID of the owner group (legacy field)"
     },
     "created_on": {
       "type": "string",

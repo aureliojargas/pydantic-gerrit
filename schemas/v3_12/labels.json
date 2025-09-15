@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LabelInfo",
+  "description": "Information about a review label",
+  "type": "object",
+  "properties": {
+    "function": {
+      "type": "string",
+      "enum": ["MaxWithBlock", "MaxNoBlock", "NoBlock", "NoOp", "PatchSetLock"],
+      "description": "The function used for label values"
+    },
+    "default_value": {
+      "type": "integer",
+      "description": "The default value for the label"
+    },
+    "values": {
+      "type": "object",
+      "description": "Maps the vote values (-2, -1, 0, +1, +2) to their descriptions",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "optional": {
+      "type": "boolean",
+      "description": "Whether the label is optional"
+    },
+    "copy_any_score": {
+      "type": "boolean",
+      "description": "Whether all scores for this label should be copied forward on rebase"
+    },
+    "copy_min_score": {
+      "type": "integer",
+      "description": "Minimum score needed to copy votes forward"
+    },
+    "copy_max_score": {
+      "type": "integer",
+      "description": "Maximum score allowed to copy votes forward"
+    },
+    "can_override": {
+      "type": "boolean",
+      "description": "Whether the label can be overridden"
+    },
+    "blocks": {
+      "type": "object",
+      "description": "List of labels that are blocked by this label",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

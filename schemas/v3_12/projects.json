@@ -29,25 +29,8 @@
       "type": "object",
       "description": "The labels that are configured for the project",
       "additionalProperties": {
-        "type": "object",
-        "properties": {
-          "function": {
-            "type": "string",
-            "enum": ["MaxWithBlock", "MaxNoBlock", "NoBlock", "NoOp", "PatchSetLock"],
-            "description": "The function used for label values"
-          },
-          "default_value": {
-            "type": "integer",
-            "description": "The default value for the label"
-          },
-          "copy_condition": {
-            "type": "string",
-            "description": "Condition for copying votes forward"
-          },
-          "copy_min_score": {
-            "type": "integer",
-            "description": "Minimum score needed to copy votes forward"
-          },
+        "$ref": "labels.json#/LabelInfo"
+      },
           "copy_max_score": {
             "type": "integer",
             "description": "Maximum score allowed to copy votes forward"
@@ -110,21 +93,7 @@
       "type": "array",
       "description": "The list of branches in the project",
       "items": {
-        "type": "object",
-        "properties": {
-          "ref": {
-            "type": "string",
-            "description": "The Git reference name"
-          },
-          "revision": {
-            "type": "string",
-            "description": "The Git commit hash"
-          },
-          "can_delete": {
-            "type": "boolean",
-            "description": "Whether the branch can be deleted"
-          }
-        }
+        "$ref": "branches.json#/BranchInfo"
       }
     },
     "config": {

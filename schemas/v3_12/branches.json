@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BranchInfo",
+  "description": "Information about a branch",
+  "type": "object",
+  "properties": {
+    "ref": {
+      "type": "string",
+      "description": "The Git reference name"
+    },
+    "revision": {
+      "type": "string",
+      "description": "The Git commit SHA-1"
+    },
+    "can_delete": {
+      "type": "boolean",
+      "description": "Whether the branch can be deleted"
+    },
+    "web_links": {
+      "type": "array",
+      "description": "Links to the branch in external systems",
+      "items": {
+        "$ref": "web-links.json#/WebLinkInfo"
+      }
+    }
+  },
+  "required": ["ref", "revision"]
+}
