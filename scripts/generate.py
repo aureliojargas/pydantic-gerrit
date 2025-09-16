@@ -10,6 +10,10 @@ from datamodel_code_generator import DataModelType, InputFileType, PythonVersion
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+REPOSITORY_ROOT = Path(__file__).parent.parent
+SCHEMAS_DIR = REPOSITORY_ROOT / 'schemas'
+GENERATED_DIR = REPOSITORY_ROOT / 'generated'
+
 ModelType = Literal[
     DataModelType.PydanticV2BaseModel,
     DataModelType.DataclassesDataclass,
@@ -34,8 +38,8 @@ def generate_models(
         model_type: Type of models to generate ("pydantic"/"dataclasses"/"typing")
         base_class: Optional base class for the models
     """
-    schema_dir = Path('schemas') / f'v{version}'
-    output_dir = Path('generated') / FORMAT_TO_DIR[model_type] / f'v{version}'
+    schema_dir = SCHEMAS_DIR / f'v{version}'
+    output_dir = GENERATED_DIR / FORMAT_TO_DIR[model_type] / f'v{version}'
 
     # Create output directory
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -78,7 +82,7 @@ def generate_models(
 def create_latest_symlinks() -> None:
     """Create 'latest' symlinks pointing to the newest version."""
     versions = sorted(
-        (p.name[1:] for p in Path('schemas').glob('v*')),
+        (p.name[1:] for p in SCHEMAS_DIR.glob('v*')),
         key=lambda v: [int(x) for x in v.split('_')],
         reverse=True,
     )
@@ -97,7 +101,7 @@ def create_latest_symlinks() -> None:
 
 def main() -> None:
     """Generate all model types for all versions."""
-    versions = [p.name[1:] for p in Path('schemas').glob('v*')]
+    versions = [p.name[1:] for p in SCHEMAS_DIR.glob('v*')]
     if not versions:
         logger.warning('No schema versions found in schemas/ directory')
         return
@@ -107,7 +111,7 @@ def main() -> None:
         generate_models(version, DataModelType.DataclassesDataclass)
         generate_models(version, DataModelType.TypingTypedDict)
 
-    create_latest_symlinks()
+    # create_latest_symlinks()
 
 
 if __name__ == '__main__':
