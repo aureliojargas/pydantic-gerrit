@@ -1,5 +1,21 @@
 # Dev notes
 
+## TODO - schemas
+
+- Complete all entities generation
+- Fix generated Python code to import from other generated models instead of creating those empty types/classes
+- Define testing strategy
+  - Have JSON input/responses saved in the repo?
+    - Then the models can be validated against them
+    - No need for a Gerrit instance to run the tests
+      - This is important so the tests run fast and reliably
+    - Gerrit instance would be useful to generate the JSON files
+    - Different sets of files per Gerrit version
+
+- Docs:
+  - How to regenerate the models: `cd schemas/v3_12 && python ../../scripts/generate.py --version 3_12`
+
+
 ## TODO
 
 - Maybe try converting `polygerrit-ui/app/types/common.ts` directly to Pydantic?
