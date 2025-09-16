@@ -5,7 +5,7 @@ import logging
 from pathlib import Path
 from typing import Literal
 
-from datamodel_code_generator import DataModelType, InputFileType, PythonVersion, generate
+from datamodel_code_generator import DataModelType, Formatter, InputFileType, PythonVersion, generate
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -75,7 +75,7 @@ def generate_models(
             snake_case_field=False,  # Preserve original field names
             strip_default_none=True,
             target_python_version=PythonVersion.PY_310,
-            # base_class=base_class,
+            formatters=[Formatter.RUFF_CHECK, Formatter.RUFF_FORMAT],
         )
 
 
