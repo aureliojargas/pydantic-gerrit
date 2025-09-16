@@ -19,7 +19,7 @@ dev = [
     "pre-commit==4.2.0",
     "pre-commit-hooks==5.0.0",
     "ruff==0.12.0",
-    "datamodel-code-generator==0.25.4",  # For generating Python models
+    "datamodel-code-generator[ruff]==0.33.0",  # For generating Python models
 ]
 test = [
     "pytest==8.4.1",
