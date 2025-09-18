@@ -7,7 +7,7 @@ import jsonschema
 import pytest
 from pydantic import BaseModel
 
-from .base import (
+from tests.base import (
     DataclassTestBase,
     PydanticTestBase,
     SchemaTestBase,
