@@ -20,9 +20,9 @@ def test_data_loader() -> Callable[[str, str, str], dict[str, Any]]:
     Returns:
         Dict containing the loaded JSON data
     """
+
     def load_test_data(version: str, entity: str, case: str) -> dict[str, Any]:
-        path = Path(__file__).parent / "data" / \
-            version / entity / f"{case}.json"
+        path = Path(__file__).parent / 'data' / version / entity / f'{case}.json'
         return json.loads(path.read_text())
 
     return load_test_data
@@ -39,8 +39,9 @@ def schema_loader() -> Callable[[str, str], dict[str, Any]]:
     Returns:
         Dict containing the loaded JSON schema
     """
+
     def load_schema(version: str, entity: str) -> dict[str, Any]:
-        path = Path("schemas") / version / f"{entity}.json"
+        path = Path('schemas') / version / f'{entity}.json'
         return json.loads(path.read_text())
 
     return load_schema
