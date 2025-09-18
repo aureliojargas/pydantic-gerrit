@@ -355,4 +355,5 @@ Should I use `__all__` to make all models available?
 
 - [Remove unused `width` attribute from AvatarInfo](https://gerrit-review.googlesource.com/c/gerrit/+/488441)
 - [REST API docs: Move 'Delete Group' after 'Create Group'](https://gerrit-review.googlesource.com/c/gerrit/+/488463)
-- [Fix typos in documentation](https://gerrit-review.googlesource.com/c/gerrit/+/489442?usp=dashboard)
+- [Fix typos in documentation](https://gerrit-review.googlesource.com/c/gerrit/+/489442)
+- [Fix typo in AvatarInfo topic (REST API docs)](https://gerrit-review.googlesource.com/c/gerrit/+/509242)
