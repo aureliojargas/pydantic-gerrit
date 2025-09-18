@@ -1,0 +1,24 @@
+{
+    "_number": 1000000,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "username": "jdoe",
+    "display_name": "John Doe",
+    "registered_on": "2023-01-01 10:20:30.000000000",
+    "inactive": false,
+    "_account_id": 1000000,
+    "status": "OOO",
+    "tags": ["contributor", "maintainer"],
+    "avatars": [
+        {
+            "url": "https://example.com/avatar/jdoe",
+            "height": 32,
+            "width": 32
+        }
+    ],
+    "preferred_email": "john.doe@company.com",
+    "secondary_emails": [
+        "john.alt@example.com",
+        "jdoe.work@company.com"
+    ]
+}

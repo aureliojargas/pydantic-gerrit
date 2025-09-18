@@ -1,0 +1,12 @@
+{
+    "id": "6a1e70e1a88782771a91808c8af9bbb7a9c26a44",
+    "url": "http://localhost:8080/admin/groups/uuid-6a1e70e1a88782771a91808c8af9bbb7a9c26a44",
+    "options": {
+        "visible_to_all": false
+    },
+    "description": "Maintainers of the project",
+    "group_id": 1000001,
+    "owner": "Project Owners",
+    "owner_id": "5c78e5fb354709eed1da0b4342c007b3c8b5f099",
+    "name": "Maintainers"
+}
